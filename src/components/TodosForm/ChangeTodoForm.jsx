@@ -2,10 +2,6 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import s from "./TodosForm.module.css";
 
-const initialValues = {
-  text: "",
-};
-
 const validationSchema = Yup.object().shape({
   text: Yup.string()
     .min(2, "Too Short!")
@@ -13,7 +9,7 @@ const validationSchema = Yup.object().shape({
     .required("Required"),
 });
 
-export const TodosForm = ({ onSubmit }) => {
+export const ChangeTodoForm = ({ onSubmit, text }) => {
   const handleSubmit = (value, options) => {
     onSubmit(value.text);
     options.resetForm();
@@ -21,7 +17,7 @@ export const TodosForm = ({ onSubmit }) => {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{ text }}
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >

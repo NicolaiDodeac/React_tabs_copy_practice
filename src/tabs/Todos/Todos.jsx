@@ -4,13 +4,20 @@ import {
   Container,
   TodosList,
   SearchBox,
+  ChangeTodoForm,
 } from "components";
 import { nanoid } from "nanoid";
 import { useState } from "react";
+import { useLocalStorage } from "hooks/useLocalStorage";
 
 const Todos = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useLocalStorage("todos", []);
+
   const [filter, setFilter] = useState("");
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [currentTodo, setCurrentTodo] = useState("");
 
   const onSubmit = (text) => {
     const todo = {
@@ -32,12 +39,25 @@ const Todos = () => {
   const handleDelete = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
+  const handleEditTodo = (todo) => {
+    setIsEditing(true);
+    setCurrentTodo(todo);
+  };
+
   return (
     <Section>
       <Container>
-        <TodosForm onSubmit={onSubmit} />
+        {isEditing ? (
+          <ChangeTodoForm onSubmit={onSubmit} text={currentTodo(text)} />
+        ) : (
+          <TodosForm onSubmit={onSubmit} />
+        )}
         <SearchBox handleSearch={handleSearch} />
-        <TodosList todos={filteredTodos} handleDelete={handleDelete} />
+        <TodosList
+          todos={filteredTodos}
+          handleDelete={handleDelete}
+          handleEditTodo={handleEditTodo}
+        />
       </Container>
     </Section>
   );
