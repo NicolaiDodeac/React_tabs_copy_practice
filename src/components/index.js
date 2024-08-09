@@ -11,3 +11,4 @@ export * from "./TodosForm/TodosForm";
 export * from "./TodoList/TodosList";
 export * from "./SearchBox/SearchBox";
 export * from "./TodosForm/ChangeTodoForm.jsx";
+export * from "../helpers/validationSchema.js";
