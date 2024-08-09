@@ -9,6 +9,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      helpers: "/src/helpers",
       components: "/src/components",
       data: "/src/data",
       styles: "/src/styles",

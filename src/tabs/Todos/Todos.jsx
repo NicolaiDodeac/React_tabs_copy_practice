@@ -44,11 +44,29 @@ const Todos = () => {
     setCurrentTodo(todo);
   };
 
+  const handleUpdateTodo = (text) => {
+    setTodos((prev) =>
+      prev.map((item) =>
+        item.id === currentTodo.id ? { ...item, text } : item
+      )
+    );
+    cancelUpdate();
+  };
+
+  const cancelUpdate = () => {
+    setIsEditing(false);
+    setCurrentTodo({});
+  };
+
   return (
     <Section>
       <Container>
         {isEditing ? (
-          <ChangeTodoForm onSubmit={onSubmit} text={currentTodo(text)} />
+          <ChangeTodoForm
+            onSubmit={handleUpdateTodo}
+            text={currentTodo.text}
+            cancelUpdate={cancelUpdate}
+          />
         ) : (
           <TodosForm onSubmit={onSubmit} />
         )}
